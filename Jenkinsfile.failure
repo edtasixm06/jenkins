@@ -1,0 +1,19 @@
+#! /usr/bin/env groovy
+pipeline {
+    agent any
+    stages {
+        stage('Test') {
+            steps {
+                sh 'make ls /'
+            }
+        }
+    }
+    post {
+        always {
+            sh 'whoami'
+        }
+        failure {
+            echo 'Error ${env.BUILD_ID} on ${env.JENKINS_URL}'
+        }
+    }
+}
